@@ -1,0 +1,189 @@
+﻿@model LibraryFinalProject.ViewModel.BookAndGenreViewModel
+
+@{
+    ViewData["Title"] = "EditBook";
+    SelectList selectList = new SelectList(Model.genres, "Id", "Name");
+}
+
+<div class="container mt-5">
+    <h1 class="text-center animated-title fadeIn">Edit Book</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card edit-card animated fadeInUp" style="box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); border-radius: 15px; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
+                <div class="card-body">
+                    <form asp-action="EditBook" asp-route-id="@Model.Id">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        
+                        <!-- Title Input -->
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>
+                            <input asp-for="Title" class="form-control styled-input" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <!-- Description Input -->
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <input asp-for="Description" class="form-control styled-input" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <!-- Author Input -->
+                        <div class="form-group">
+                            <label asp-for="Author" class="control-label"></label>
+                            <input asp-for="Author" class="form-control styled-input" />
+                            <span asp-validation-for="Author" class="text-danger"></span>
+                        </div>
+
+                        <!-- Availability Status Dropdown -->
+                        <div class="form-group">
+                            <label asp-for="Availability_Status"></label><br />
+                            <select asp-for="Availability_Status" class="form-control styled-input">
+                                <option value="0">Select Availability</option>
+                                <option value="Available">Available</option>
+                                <option value="Not Available">Not Available</option>
+                            </select>
+                            <span asp-validation-for="Availability_Status" class="text-danger"></span>
+                        </div>
+
+                        <!-- ISBN Input -->
+                        <div class="form-group">
+                            <label asp-for="ISBN" class="control-label"></label>
+                            <input asp-for="ISBN" class="form-control styled-input" />
+                            <span asp-validation-for="ISBN" class="text-danger"></span>
+                        </div>
+
+                        <!-- PricePerWeek Input -->
+                        <div class="form-group">
+                            <label asp-for="PricePerWeek" class="control-label"></label>
+                            <input asp-for="PricePerWeek" class="form-control styled-input" />
+                            <span asp-validation-for="PricePerWeek" class="text-danger"></span>
+                        </div>
+
+                        <!-- Publish Date Input -->
+                        <div class="form-group">
+                            <label asp-for="Publish_Date" class="control-label"></label>
+                            <input asp-for="Publish_Date" class="form-control styled-input" />
+                            <span asp-validation-for="Publish_Date" class="text-danger"></span>
+                        </div>
+
+                        <!-- Book Photo Input -->
+                        <div class="form-group">
+                            <label asp-for="Book_Photo" class="control-label"></label>
+                            <input asp-for="Book_Photo" class="form-control styled-input" />
+                            <span asp-validation-for="Book_Photo" class="text-danger"></span>
+                        </div>
+
+                        <!-- Genre Dropdown -->
+                        <div class="form-group">
+                            <label asp-for="Genre_Id" class="control-label">Genre</label>
+                            <select asp-for="Genre_Id" asp-items="selectList" class="form-control styled-input">
+                            </select>
+                            <span asp-validation-for="Genre_Id" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <input type="submit" value="Update" class="btn btn-primary btn-animated" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-action="IndexForManagers" class="btn btn-secondary btn-animated">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<style>
+    body {
+        background: linear-gradient(to right, #1e3a8a, #4f83cc, #001f3f);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: black;
+    }
+
+    .animated-title {
+        animation: fadeInDown 1s ease-in-out;
+        color: #0d47a1;
+        margin-bottom: 30px;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .edit-card {
+        border-radius: 15px;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .form-control.styled-input {
+        border: 2px solid #42a5f5;
+        padding: 10px;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .form-control.styled-input:focus {
+        border-color: #0d47a1;
+        box-shadow: 0 0 10px rgba(13, 71, 161, 0.3);
+        transform: scale(1.03);
+    }
+
+    .btn-animated {
+        background-color: #42a5f5;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-animated:hover {
+        background-color: #0d47a1;
+        transform: scale(1.1);
+    }
+
+    .btn-secondary {
+        background-color: #b0bec5;
+        border-color: #b0bec5;
+        color: #000;
+    }
+
+    .btn-secondary:hover {
+        background-color: #78909c;
+    }
+</style>
